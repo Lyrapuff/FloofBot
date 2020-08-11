@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloofBot.Bot", "FloofBot.Bot\FloofBot.Bot.csproj", "{C072D940-3093-419C-A5DB-8E6C56F49634}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloofBot.Starter", "FloofBot.Starter\FloofBot.Starter.csproj", "{D72CF22C-8A04-494A-AA8B-AC7B44B81AE8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C072D940-3093-419C-A5DB-8E6C56F49634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C072D940-3093-419C-A5DB-8E6C56F49634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C072D940-3093-419C-A5DB-8E6C56F49634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C072D940-3093-419C-A5DB-8E6C56F49634}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D72CF22C-8A04-494A-AA8B-AC7B44B81AE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D72CF22C-8A04-494A-AA8B-AC7B44B81AE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D72CF22C-8A04-494A-AA8B-AC7B44B81AE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D72CF22C-8A04-494A-AA8B-AC7B44B81AE8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
