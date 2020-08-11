@@ -102,7 +102,12 @@
     <Target Name="BeforeBuild">
     </Target>
     <Target Name="AfterBuild">
+    
     </Target>
     -->
+
+    <Target Name="AfterBuild">
+        <Copy SourceFiles="$(OutputPath)\FloofBot.TestModule.dll" DestinationFolder="$(SolutionDir)\FloofBot.Starter\bin\Debug\Modules" ContinueOnError="true"/>
+    </Target>
 
 </Project>

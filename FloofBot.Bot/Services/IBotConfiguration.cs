@@ -1,12 +1,16 @@
-﻿namespace FloofBot.Bot.Services
+﻿using Newtonsoft.Json;
+
+namespace FloofBot.Bot.Services
 {
-    public interface IBotConfiguration
+    public interface IBotConfiguration : IFloofyService
     {
+        [JsonProperty]
         BotCredentials Credentials { get; set; }
     }
 
     public class BotCredentials
     {
-        public string DiscordToken { get; set; }
+        [JsonProperty]
+        public string DiscordToken { get; set; } = "";
     }
 }

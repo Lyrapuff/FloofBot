@@ -1,7 +1,15 @@
-﻿namespace FloofBot.Bot.Attributes
+﻿using System;
+using System.Runtime.CompilerServices;
+using Discord.Commands;
+
+namespace FloofBot.Bot.Attributes
 {
-    public class FloofCommandAttribute
+    [AttributeUsage(AttributeTargets.Method)]
+    public class FloofCommandAttribute : CommandAttribute
     {
-        
+        public FloofCommandAttribute(string name) : base(name)
+        {
+            
+        }
     }
 }

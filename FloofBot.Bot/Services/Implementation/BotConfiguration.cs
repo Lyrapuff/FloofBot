@@ -1,11 +1,13 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Newtonsoft.Json;
 
 namespace FloofBot.Bot.Services.Implementation
 {
     public class BotConfiguration : IBotConfiguration
     {
-        public BotCredentials Credentials { get; set; }
+        [JsonProperty]
+        public BotCredentials Credentials { get; set; } = new BotCredentials();
 
         public BotConfiguration()
         {
@@ -13,8 +15,12 @@ namespace FloofBot.Bot.Services.Implementation
             
             if (!File.Exists(path))
             {
-                File.Create(path);
-                File.WriteAllText(path, JsonConvert.SerializeObject(new BotConfiguration()));
+                using (StreamWriter writer = File.CreateText(path))
+                {
+                    writer.Write(JsonConvert.SerializeObject(this, Formatting.Indented));
+                }
+
+                return;
             }
 
             string json = File.ReadAllText(path);
