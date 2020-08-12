@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Discord;
@@ -48,6 +50,8 @@ namespace FloofBot.Bot
 
         private void AddServices()
         {
+            Stopwatch timer = Stopwatch.StartNew();
+            
             IServiceCollection serviceCollection = new ServiceCollection();
 
             serviceCollection
@@ -56,6 +60,16 @@ namespace FloofBot.Bot
             
             serviceCollection.LoadFrom(Assembly.GetAssembly(typeof(BotSetup)));
 
+            string path = "Modules";
+            
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+
+            foreach (FileInfo fileInfo in directoryInfo.GetFiles("*.dll"))
+            {
+                Assembly assembly = Assembly.LoadFile(fileInfo.FullName);
+                serviceCollection.LoadFrom(assembly);
+            }
+
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
             _serviceProvider.GetService<IModuleLoader>()
@@ -63,6 +77,12 @@ namespace FloofBot.Bot
             
             _serviceProvider.GetService<ICommandHandler>()
                 .Start(_serviceProvider);
+            
+            timer.Stop();
+            
+            _serviceProvider.GetService<ILoggerProvider>()
+                .GetLogger("Main")
+                .LogInformation($"Loaded services in {timer.Elapsed}");
         }
     }
 }

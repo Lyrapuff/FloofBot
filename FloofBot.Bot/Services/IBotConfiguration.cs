@@ -1,16 +1,22 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
 
 namespace FloofBot.Bot.Services
 {
     public interface IBotConfiguration : IFloofyService
     {
-        [JsonProperty]
+        string LogLevel { get; set; }
         BotCredentials Credentials { get; set; }
+        Dictionary<string, Command> Commands { get; set; }
     }
 
     public class BotCredentials
     {
-        [JsonProperty]
         public string DiscordToken { get; set; } = "";
+    }
+
+    public class Command
+    {
+        public string Name { get; set; } = "";
+        public string[] Aliases { get; set; } = new string[0];
     }
 }

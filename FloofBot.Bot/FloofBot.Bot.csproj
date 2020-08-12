@@ -135,17 +135,21 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Attributes\FloofAliasesAttribute.cs" />
         <Compile Include="Attributes\FloofCommandAttribute.cs" />
         <Compile Include="BotSetup.cs" />
+        <Compile Include="Common\Logger.cs" />
         <Compile Include="Extensions\IServiceCollectionExtensions.cs" />
         <Compile Include="Modules\IModuleManifest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Services\IBotConfiguration.cs" />
         <Compile Include="Services\ICommandHandler.cs" />
         <Compile Include="Services\IFloofyService.cs" />
+        <Compile Include="Services\ILoggerProvider.cs" />
         <Compile Include="Services\IModuleLoader.cs" />
         <Compile Include="Services\Implementation\BotConfiguration.cs" />
         <Compile Include="Services\Implementation\CommandHandler.cs" />
+        <Compile Include="Services\Implementation\LoggerProvider.cs" />
         <Compile Include="Services\Implementation\ModuleLoader.cs" />
     </ItemGroup>
     <ItemGroup>

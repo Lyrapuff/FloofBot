@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Discord.WebSocket;
+using FloofBot.Bot.Common;
 
 namespace FloofBot.Bot.Services.Implementation
 {
@@ -12,12 +13,13 @@ namespace FloofBot.Bot.Services.Implementation
         private DiscordSocketClient _client;
         private CommandService _commandService;
         private IServiceProvider _serviceProvider;
+        private Logger _logger;
 
-        public CommandHandler(DiscordSocketClient client, CommandService commandService)
+        public CommandHandler(DiscordSocketClient client, CommandService commandService, ILoggerProvider _loggerProvider)
         {
-            
             _client = client;
             _commandService = commandService;
+            _logger = _loggerProvider.GetLogger("Main");
         }
 
         public void Start(IServiceProvider serviceProvider)
@@ -33,8 +35,6 @@ namespace FloofBot.Bot.Services.Implementation
             {
                 if (!message.Author.IsBot && message is SocketUserMessage userMessage)
                 {
-                    Console.WriteLine("hello");
-                    
                     ISocketMessageChannel channel = message.Channel;
                     SocketGuild guild = (message.Channel as SocketTextChannel)?.Guild;
 
@@ -77,8 +77,7 @@ namespace FloofBot.Bot.Services.Implementation
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                // TODO: log
+                _logger.LogError($"Error in command handler: {Environment.NewLine} {e}");
             }
         }
     }

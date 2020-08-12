@@ -1,23 +1,24 @@
-﻿using System.Threading.Tasks;
+﻿﻿using System.Threading.Tasks;
+using Discord;
 using Discord.Commands;
 using FloofBot.Bot.Attributes;
-using FloofBot.Bot.Services;
+using FloofBot.TestModule.Services;
 
-namespace FloofBot.TestModule.Commands
+ namespace FloofBot.TestModule.Commands
 {
     public class TestCommand : ModuleBase<CommandContext>
     {
-        private IBotConfiguration _botConfiguration;
+        private CuddleService _cuddle;
 
-        public TestCommand(IBotConfiguration botConfiguration)
+        public TestCommand(CuddleService cuddle)
         {
-            _botConfiguration = botConfiguration;
+            _cuddle = cuddle;
         }
         
-        [FloofCommand("test")]
-        public async Task Test()
+        [FloofCommand, FloofAliases]
+        public async Task Test(IUser user)
         {
-            await Context.Channel.SendMessageAsync(string.Format("my token is {0}", _botConfiguration.Credentials.DiscordToken));
+            await Context.Channel.SendMessageAsync(_cuddle.Cuddle(user));
         }
     }
 }
