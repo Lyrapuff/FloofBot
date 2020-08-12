@@ -1,7 +1,8 @@
-﻿﻿using System.Threading.Tasks;
+﻿﻿using System;
+using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
-using FloofBot.Bot.Attributes;
+using FloofBot.Core.Attributes;
 using FloofBot.TestModule.Services;
 
  namespace FloofBot.TestModule.Commands
@@ -12,12 +13,14 @@ using FloofBot.TestModule.Services;
 
         public TestCommand(CuddleService cuddle)
         {
+            Console.WriteLine("ctor");
             _cuddle = cuddle;
         }
         
         [FloofCommand, FloofAliases]
         public async Task Test(IUser user)
         {
+            Console.WriteLine("Command");
             await Context.Channel.SendMessageAsync(_cuddle.Cuddle(user));
         }
     }

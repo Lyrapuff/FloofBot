@@ -1,5 +1,5 @@
 ﻿using Discord;
-using FloofBot.Bot.Services;
+using FloofBot.Core.Services;
 
 namespace FloofBot.TestModule.Services
 {

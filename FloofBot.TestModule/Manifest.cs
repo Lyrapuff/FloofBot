@@ -1,4 +1,4 @@
-﻿using FloofBot.Bot.Modules;
+﻿using FloofBot.Core.Modules;
 
 namespace FloofBot.TestModule
 {

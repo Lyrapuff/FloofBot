@@ -1,0 +1,12 @@
+G:\C#\FloofBot\FloofBot.TestModule\bin\Debug\netcoreapp3.1\FloofBot.TestModule.deps.json
+G:\C#\FloofBot\FloofBot.TestModule\bin\Debug\netcoreapp3.1\FloofBot.TestModule.dll
+G:\C#\FloofBot\FloofBot.TestModule\bin\Debug\netcoreapp3.1\FloofBot.TestModule.pdb
+G:\C#\FloofBot\FloofBot.TestModule\bin\Debug\netcoreapp3.1\FloofBot.Core.dll
+G:\C#\FloofBot\FloofBot.TestModule\bin\Debug\netcoreapp3.1\FloofBot.Core.pdb
+G:\C#\FloofBot\FloofBot.TestModule\obj\Debug\netcoreapp3.1\FloofBot.TestModule.csprojAssemblyReference.cache
+G:\C#\FloofBot\FloofBot.TestModule\obj\Debug\netcoreapp3.1\FloofBot.TestModule.AssemblyInfoInputs.cache
+G:\C#\FloofBot\FloofBot.TestModule\obj\Debug\netcoreapp3.1\FloofBot.TestModule.AssemblyInfo.cs
+G:\C#\FloofBot\FloofBot.TestModule\obj\Debug\netcoreapp3.1\FloofBot.TestModule.csproj.CoreCompileInputs.cache
+G:\C#\FloofBot\FloofBot.TestModule\obj\Debug\netcoreapp3.1\FloofBot.TestModule.csproj.CopyComplete
+G:\C#\FloofBot\FloofBot.TestModule\obj\Debug\netcoreapp3.1\FloofBot.TestModule.dll
+G:\C#\FloofBot\FloofBot.TestModule\obj\Debug\netcoreapp3.1\FloofBot.TestModule.pdb
