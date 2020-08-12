@@ -1,9 +1,0 @@
-G:\C#\FloofBot\FloofBot.Core\obj\Debug\netcoreapp3.1\FloofBot.Core.csprojAssemblyReference.cache
-G:\C#\FloofBot\FloofBot.Core\obj\Debug\netcoreapp3.1\FloofBot.Core.AssemblyInfoInputs.cache
-G:\C#\FloofBot\FloofBot.Core\obj\Debug\netcoreapp3.1\FloofBot.Core.AssemblyInfo.cs
-G:\C#\FloofBot\FloofBot.Core\obj\Debug\netcoreapp3.1\FloofBot.Core.csproj.CoreCompileInputs.cache
-G:\C#\FloofBot\FloofBot.Core\bin\Debug\netcoreapp3.1\FloofBot.Core.deps.json
-G:\C#\FloofBot\FloofBot.Core\bin\Debug\netcoreapp3.1\FloofBot.Core.dll
-G:\C#\FloofBot\FloofBot.Core\bin\Debug\netcoreapp3.1\FloofBot.Core.pdb
-G:\C#\FloofBot\FloofBot.Core\obj\Debug\netcoreapp3.1\FloofBot.Core.dll
-G:\C#\FloofBot\FloofBot.Core\obj\Debug\netcoreapp3.1\FloofBot.Core.pdb
