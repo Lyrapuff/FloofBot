@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Discord.Commands;
 using Discord.WebSocket;
 using FloofBot.Core.Common;
+using FloofBot.Core.Modules;
+using FloofBot.Core.Services.Database.Repositories;
 
 namespace FloofBot.Core.Services.Implementation
 {
@@ -14,12 +16,17 @@ namespace FloofBot.Core.Services.Implementation
         private CommandService _commandService;
         private IServiceProvider _serviceProvider;
         private Logger _logger;
+        private IDiscordUserRepository _discordUserRepository;
+        private IModuleLoader _moduleLoader;
 
-        public CommandHandler(DiscordSocketClient client, CommandService commandService, ILoggerProvider _loggerProvider)
+        public CommandHandler(DiscordSocketClient client, CommandService commandService, IServiceProvider serviceProvider, ILoggerProvider loggerProvider, IDiscordUserRepository discordUserRepository, IModuleLoader moduleLoader)
         {
             _client = client;
             _commandService = commandService;
-            _logger = _loggerProvider.GetLogger("Main");
+            _serviceProvider = serviceProvider;
+            _logger = loggerProvider.GetLogger("Main");
+            _discordUserRepository = discordUserRepository;
+            _moduleLoader = moduleLoader;
         }
 
         public void Start(IServiceProvider serviceProvider)
@@ -35,6 +42,8 @@ namespace FloofBot.Core.Services.Implementation
             {
                 if (!message.Author.IsBot && message is SocketUserMessage userMessage)
                 {
+                    _discordUserRepository.EnsureCreated(message.Author);
+                    
                     _logger.LogDebug($"New message from {message.Author.Username}");
                     
                     ISocketMessageChannel channel = message.Channel;
@@ -74,6 +83,21 @@ namespace FloofBot.Core.Services.Implementation
                         
                         KeyValuePair<CommandMatch, PreconditionResult> precondition = succesfulPreconditions.FirstOrDefault();
 
+                        string commandName = precondition.Key.Command.Name;
+                        IModuleManifest manifest = _moduleLoader.CommandMap
+                            .FirstOrDefault(x => x.Value.Contains(commandName)).Key;
+
+                        if (manifest == null)
+                        {
+                            _logger.LogError("Trying to execute command of an unknown module." +
+                                             $"{Environment.NewLine}Content: {userMessage.Content}" +
+                                             $"{Environment.NewLine}User: {userMessage.Author.Mention}" +
+                                             $"{Environment.NewLine}Guild: {guild?.Id}");
+                            return;
+                        }
+                        
+                        _logger.LogDebug($"Executing a command of the {manifest.Name} module.");
+                        
                         ParseResult parseResult = await precondition.Key.ParseAsync(context, searchResult, precondition.Value, _serviceProvider);
 
                         _logger.LogDebug("Executing command");

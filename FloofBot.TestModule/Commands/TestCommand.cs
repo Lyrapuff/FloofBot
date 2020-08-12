@@ -1,27 +1,26 @@
-﻿﻿using System;
+﻿using System;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using FloofBot.Core.Attributes;
-using FloofBot.TestModule.Services;
+using FloofBot.Core.Services.Database.Repositories;
 
  namespace FloofBot.TestModule.Commands
 {
     public class TestCommand : ModuleBase<CommandContext>
     {
-        private CuddleService _cuddle;
+        private IDiscordUserRepository _discordUserRepository;
 
-        public TestCommand(CuddleService cuddle)
+        public TestCommand(IDiscordUserRepository discordUserRepository)
         {
-            Console.WriteLine("ctor");
-            _cuddle = cuddle;
+            _discordUserRepository = discordUserRepository;
         }
         
         [FloofCommand, FloofAliases]
         public async Task Test(IUser user)
         {
-            Console.WriteLine("Command");
-            await Context.Channel.SendMessageAsync(_cuddle.Cuddle(user));
+            _discordUserRepository.EnsureCreated(user);
+            await Context.Channel.SendMessageAsync($"{user.Username}'s db id is {_discordUserRepository.GetByDiscordId(user.Id).Id}");
         }
     }
 }

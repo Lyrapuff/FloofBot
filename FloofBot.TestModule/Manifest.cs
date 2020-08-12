@@ -1,4 +1,5 @@
-﻿using FloofBot.Core.Modules;
+﻿using System;
+using FloofBot.Core.Modules;
 
 namespace FloofBot.TestModule
 {
@@ -6,6 +7,6 @@ namespace FloofBot.TestModule
     {
         public string Name { get; set; } = "TestModule";
         public string Description { get; set; } = "A module for testing. Lol.";
-        public string Version { get; set; } = "0";
+        public Version Version { get; set; } = new Version(1, 0, 0, 0);
     }
 }
