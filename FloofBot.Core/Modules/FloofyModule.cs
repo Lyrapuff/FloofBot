@@ -1,5 +1,7 @@
-﻿using Discord.Commands;
+﻿using System;
+using Discord.Commands;
 using FloofBot.Core.Services;
+using FloofBot.Core.Services.Database.Models;
 using FloofBot.Core.Services.Database.Repositories;
 
 namespace FloofBot.Core.Modules
@@ -15,13 +17,15 @@ namespace FloofBot.Core.Modules
             _discordGuildRepository = discordGuildRepository;
         }
 
-        protected string GetText(string locale, string key)
+        protected string GetText(string wordKey)
         {
-            string word = _discordGuildRepository.GetLocalizationOverride(Context.Guild, locale, key);
+            string localeKey = _discordGuildRepository.GetLocaleKey(Context.Guild);
+            
+            string word = _discordGuildRepository.GetLocalizationOverride(Context.Guild, localeKey, wordKey);
 
             if (string.IsNullOrWhiteSpace(word))
             {
-                word = _localization.GetString(locale, key);
+                word = _localization.GetString(localeKey, wordKey);
             }
 
             return word;

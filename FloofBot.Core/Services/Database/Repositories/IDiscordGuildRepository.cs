@@ -12,5 +12,6 @@ namespace FloofBot.Core.Services.Database.Repositories
         void ToggleModule(IGuild guild, string moduleName);
         bool IsModuleEnabled(IGuild guild, string moduleName);
         string GetLocalizationOverride(IGuild guild, string locale, string key);
+        string GetLocaleKey(IGuild guild);
     }
 }

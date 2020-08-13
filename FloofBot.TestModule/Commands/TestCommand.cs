@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Discord.Commands;
 using FloofBot.Core.Attributes;
 using FloofBot.Core.Modules;
 using FloofBot.Core.Services;
@@ -14,9 +13,9 @@ namespace FloofBot.TestModule.Commands
         }
 
         [FloofCommand, FloofAliases]
-        public async Task Test([Remainder]string locale = "en")
+        public async Task Test()
         {
-            await Context.Channel.SendMessageAsync(GetText(locale, "cat"));
+            await Context.Channel.SendMessageAsync(GetText("cat"));
         }
     }
 }

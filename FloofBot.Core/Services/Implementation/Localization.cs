@@ -10,11 +10,13 @@ namespace FloofBot.Core.Services.Implementation
 {
     public class Localization : ILocalization
     {
-        private readonly Dictionary<string, LocalizedWord[]> _locales = new Dictionary<string, LocalizedWord[]>();
+        private Logger _logger;
+        private List<LocalizationKey> _keys = new List<LocalizationKey>();
+        private List<Locale> _locales = new List<Locale>();
 
         public Localization(ILoggerProvider loggerProvider)
         {
-            Logger logger = loggerProvider.GetLogger("Main");
+            _logger = loggerProvider.GetLogger("Main");
 
             try
             {
@@ -30,48 +32,71 @@ namespace FloofBot.Core.Services.Implementation
 
                 DirectoryInfo directoryInfo = new DirectoryInfo(path);
 
+                foreach (FileInfo fileInfo in directoryInfo.GetFiles("keys.json"))
+                {
+                    string text = File.ReadAllText(fileInfo.FullName);
+                    _keys = JsonConvert.DeserializeObject<List<LocalizationKey>>(text);
+                }
+
                 foreach (FileInfo fileInfo in directoryInfo.GetFiles("*.locale.json"))
                 {
                     string text = File.ReadAllText(fileInfo.FullName);
-                    string localeName = fileInfo.Name.Split('.')[0];
+                    string key = fileInfo.Name.Split('.')[0];
 
-                    _locales[localeName] = JsonConvert.DeserializeObject<LocalizedWord[]>(text);
+                    Locale locale = new Locale();
+                    locale.Key = key;
+                    locale.Words = JsonConvert.DeserializeObject<Dictionary<string, string>>(text);
+                    
+                    _locales.Add(locale);
 
                     count++;
                 }
 
                 timer.Stop();
 
-                logger.LogInformation($"Loaded {count} {(count == 1 ? "locale" : "locales")} in {timer.Elapsed:g}");
+                _logger.LogInformation($"Loaded {count} {(count == 1 ? "locale" : "locales")} in {timer.Elapsed:g}");
             }
             catch (Exception e)
             {
-                logger.LogError($"Error in Localization:{Environment.NewLine}{e}");
+                _logger.LogError($"Error in Localization:{Environment.NewLine}{e}");
             }
         }
         
-        public string GetString(string locale, string key)
+        public string GetString(string localeKey, string wordKey)
         {
-            if (_locales.ContainsKey(locale))
-            {
-                return _locales[locale].FirstOrDefault(x => x.Key == key).Value ?? "No localization 3:";
-            }
+            string defaultValue = "No localization 3:";
 
-            return "No localization 3:";
+            try
+            {
+                Locale locale = _locales.FirstOrDefault(x => x.Key == localeKey);
+                
+                if (locale != null)
+                {
+                    string word = locale.Words.FirstOrDefault(x => x.Key == wordKey).Value;
+
+                    return string.IsNullOrWhiteSpace(word) ? defaultValue : word;
+                }
+
+                return defaultValue;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error while getting localization value:{Environment.NewLine}{e}");   
+                return defaultValue;
+            }
         }
     }
 
-    public struct LocalizedWord
+    public class LocalizationKey
     {
-        public string Key { get; }
-        public string Value { get; }
-        public bool Overridable { get; }
+        public string Key { get; set; }
+        public bool Overridable { get; set; }
+    }
 
-        public LocalizedWord(string key, string value, bool overridable)
-        {
-            Key = key;
-            Value = value;
-            Overridable = overridable;
-        }
+    public class Locale
+    {
+        [JsonIgnore]
+        public string Key { get; set; }
+        public Dictionary<string, string> Words { get; set; }
     }
 }

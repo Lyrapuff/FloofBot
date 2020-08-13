@@ -35,6 +35,9 @@ namespace FloofBot.Core.Migrations
                     b.Property<decimal>("DiscordId")
                         .HasColumnType("numeric(20,0)");
 
+                    b.Property<string>("LocaleKey")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("DiscordGuilds");

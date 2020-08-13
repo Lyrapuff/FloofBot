@@ -109,5 +109,12 @@ namespace FloofBot.Core.Services.Database.Repositories
 
             return word;
         }
+
+        public string GetLocaleKey(IGuild guild)
+        {
+            DiscordGuild discordGuild = GetByDiscordId(guild.Id);
+
+            return discordGuild == null ? "en" : discordGuild.LocaleKey;
+        }
     }
 }
