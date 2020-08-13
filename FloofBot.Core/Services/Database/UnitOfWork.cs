@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace FloofBot.Core.Services.Database
 {
@@ -6,9 +7,13 @@ namespace FloofBot.Core.Services.Database
     {
         public FloofyContext Context { get; set; }
 
-        public UnitOfWork()
+        public UnitOfWork(IBotConfiguration botConfiguration)
         {
-            Context = new FloofyContext();
+            DbContextOptions<FloofyContext> options = new DbContextOptionsBuilder<FloofyContext>()
+                .UseNpgsql(botConfiguration.DatabaseConnectionString)
+                .Options;
+
+            Context = new FloofyContext(options);
         }
         
         public void Commit()

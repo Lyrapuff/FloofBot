@@ -1,23 +1,22 @@
 ﻿using System.Threading.Tasks;
 using Discord.Commands;
 using FloofBot.Core.Attributes;
+using FloofBot.Core.Modules;
 using FloofBot.Core.Services;
+using FloofBot.Core.Services.Database.Repositories;
 
 namespace FloofBot.TestModule.Commands
 {
-    public class TestCommand : ModuleBase<CommandContext>
+    public class TestCommand : FloofyModule
     {
-        private ILocalization _localization;
-
-        public TestCommand(ILocalization localization)
+        public TestCommand(ILocalization localization, IDiscordGuildRepository discordGuildRepository) : base(localization, discordGuildRepository)
         {
-            _localization = localization;
         }
 
         [FloofCommand, FloofAliases]
         public async Task Test([Remainder]string locale = "en")
         {
-            await Context.Channel.SendMessageAsync(_localization.GetString(locale, "cat"));
+            await Context.Channel.SendMessageAsync(GetText(locale, "cat"));
         }
     }
 }

@@ -37,8 +37,6 @@ namespace FloofBot.Core
                 DefaultRunMode = RunMode.Sync
             });
 
-            await _commandService.AddModulesAsync(Assembly.GetAssembly(typeof(BotSetup)), _serviceProvider);
-
             await LoginAsync();
             
             AddServices();
@@ -61,7 +59,19 @@ namespace FloofBot.Core
                 .AddSingleton(_commandService);
             
             serviceCollection.LoadFrom(Assembly.GetAssembly(typeof(BotSetup)));
+            
+            _serviceProvider = serviceCollection.BuildServiceProvider();
 
+            _serviceProvider.GetService<ILocalization>();
+            
+            _serviceProvider.GetService<IModuleLoader>()
+                .Load(_serviceProvider);
+
+            _serviceProvider.GetService<ICommandHandler>()
+                .Start(_serviceProvider);
+            
+            _serviceProvider.GetService<GuildSetup>();
+            
             string path = "Modules";
             
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
@@ -71,18 +81,6 @@ namespace FloofBot.Core
                 Assembly assembly = Assembly.LoadFile(fileInfo.FullName);
                 serviceCollection.LoadFrom(assembly);
             }
-
-            _serviceProvider = serviceCollection.BuildServiceProvider();
-
-            _serviceProvider.GetService<IModuleLoader>()
-                .Load(_serviceProvider);
-            
-            _serviceProvider.GetService<ILocalization>();
-            
-            _serviceProvider.GetService<ICommandHandler>()
-                .Start(_serviceProvider);
-            
-            _serviceProvider.GetService<GuildSetup>();
             
             timer.Stop();
             

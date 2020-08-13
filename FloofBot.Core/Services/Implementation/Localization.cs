@@ -65,11 +65,13 @@ namespace FloofBot.Core.Services.Implementation
     {
         public string Key { get; }
         public string Value { get; }
+        public bool Overridable { get; }
 
-        public LocalizedWord(string key, string value)
+        public LocalizedWord(string key, string value, bool overridable)
         {
             Key = key;
             Value = value;
+            Overridable = overridable;
         }
     }
 }
