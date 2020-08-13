@@ -77,16 +77,18 @@ namespace FloofBot.Core
             _serviceProvider.GetService<IModuleLoader>()
                 .Load(_serviceProvider);
             
+            _serviceProvider.GetService<ILocalization>();
+            
             _serviceProvider.GetService<ICommandHandler>()
                 .Start(_serviceProvider);
+            
+            _serviceProvider.GetService<GuildSetup>();
             
             timer.Stop();
             
             _serviceProvider.GetService<ILoggerProvider>()
                 .GetLogger("Main")
                 .LogInformation($"Loaded services in {timer.Elapsed:g}");
-
-            _serviceProvider.GetService<GuildSetup>();
         }
     }
 }

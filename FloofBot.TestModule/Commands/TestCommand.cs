@@ -1,26 +1,23 @@
-﻿using System;
-using System.Threading.Tasks;
-using Discord;
+﻿using System.Threading.Tasks;
 using Discord.Commands;
 using FloofBot.Core.Attributes;
-using FloofBot.Core.Services.Database.Repositories;
+using FloofBot.Core.Services;
 
- namespace FloofBot.TestModule.Commands
+namespace FloofBot.TestModule.Commands
 {
     public class TestCommand : ModuleBase<CommandContext>
     {
-        private IDiscordUserRepository _discordUserRepository;
+        private ILocalization _localization;
 
-        public TestCommand(IDiscordUserRepository discordUserRepository)
+        public TestCommand(ILocalization localization)
         {
-            _discordUserRepository = discordUserRepository;
+            _localization = localization;
         }
-        
+
         [FloofCommand, FloofAliases]
-        public async Task Test(IUser user)
+        public async Task Test([Remainder]string locale = "en")
         {
-            _discordUserRepository.EnsureCreated(user);
-            await Context.Channel.SendMessageAsync($"{user.Username}'s db id is {_discordUserRepository.GetByDiscordId(user.Id).Id}");
+            await Context.Channel.SendMessageAsync(_localization.GetString(locale, "cat"));
         }
     }
 }
