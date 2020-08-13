@@ -35,7 +35,7 @@ namespace FloofBot.Core.Extensions
                 }
                 else
                 {
-                    serviceCollection.AddSingleton(serviceType, serviceType);
+                    serviceCollection.AddSingleton(serviceType);
                 }
             }
         }

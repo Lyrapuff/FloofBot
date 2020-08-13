@@ -40,12 +40,8 @@ namespace FloofBot.Core
             await _commandService.AddModulesAsync(Assembly.GetAssembly(typeof(BotSetup)), _serviceProvider);
 
             await LoginAsync();
+            
             AddServices();
-
-            using (FloofyContext context = new FloofyContext())
-            {
-                await context.Database.EnsureCreatedAsync();
-            }
         }
 
         private async Task LoginAsync()
@@ -88,7 +84,9 @@ namespace FloofBot.Core
             
             _serviceProvider.GetService<ILoggerProvider>()
                 .GetLogger("Main")
-                .LogInformation($"Loaded services in {timer.Elapsed}");
+                .LogInformation($"Loaded services in {timer.Elapsed:g}");
+
+            _serviceProvider.GetService<GuildSetup>();
         }
     }
 }

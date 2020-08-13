@@ -17,15 +17,24 @@ namespace FloofBot.Core.Services.Implementation
         private IServiceProvider _serviceProvider;
         private Logger _logger;
         private IDiscordUserRepository _discordUserRepository;
+        private IDiscordGuildRepository _discordGuildRepository;
         private IModuleLoader _moduleLoader;
 
-        public CommandHandler(DiscordSocketClient client, CommandService commandService, IServiceProvider serviceProvider, ILoggerProvider loggerProvider, IDiscordUserRepository discordUserRepository, IModuleLoader moduleLoader)
+        public CommandHandler(
+            DiscordSocketClient client,
+            CommandService commandService,
+            IServiceProvider serviceProvider,
+            ILoggerProvider loggerProvider,
+            IDiscordUserRepository discordUserRepository,
+            IDiscordGuildRepository discordGuildRepository,
+            IModuleLoader moduleLoader)
         {
             _client = client;
             _commandService = commandService;
             _serviceProvider = serviceProvider;
             _logger = loggerProvider.GetLogger("Main");
             _discordUserRepository = discordUserRepository;
+            _discordGuildRepository = discordGuildRepository;
             _moduleLoader = moduleLoader;
         }
 
@@ -93,6 +102,12 @@ namespace FloofBot.Core.Services.Implementation
                                              $"{Environment.NewLine}Content: {userMessage.Content}" +
                                              $"{Environment.NewLine}User: {userMessage.Author.Mention}" +
                                              $"{Environment.NewLine}Guild: {guild?.Id}");
+                            return;
+                        }
+
+                        if (!_discordGuildRepository.IsModuleEnabled(guild, manifest.Name))
+                        {
+                            _logger.LogDebug($"Tried to execute command of module {manifest.Name}, but it's disabled.");
                             return;
                         }
                         

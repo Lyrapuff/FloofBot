@@ -85,7 +85,7 @@ namespace FloofBot.Core.Services.Implementation
 
                 time.Stop();
 
-                _logger.LogInformation($"Loaded {count} {(count == 1 ? "module" : "modules")} with {commandCount} {(commandCount == 1 ? "command" : "commands")} in {time.Elapsed}");
+                _logger.LogInformation($"Loaded {count} {(count == 1 ? "module" : "modules")} with {commandCount} {(commandCount == 1 ? "command" : "commands")} in {time.Elapsed:g}");
             }
             catch (Exception e)
             {
