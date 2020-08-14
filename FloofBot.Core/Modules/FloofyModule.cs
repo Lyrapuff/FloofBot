@@ -1,7 +1,6 @@
-﻿using System;
-using Discord.Commands;
+﻿using Discord.Commands;
+using FloofBot.Core.Common;
 using FloofBot.Core.Services;
-using FloofBot.Core.Services.Database.Models;
 using FloofBot.Core.Services.Database.Repositories;
 
 namespace FloofBot.Core.Modules
@@ -17,6 +16,17 @@ namespace FloofBot.Core.Modules
             _discordGuildRepository = discordGuildRepository;
         }
 
+        protected ReplyBuilder GetReplyBuilder()
+        {
+            return new ReplyBuilder()
+                .AddVariable("user.id", Context.User.Id)
+                .AddVariable("user.username", Context.User.Username)
+                .AddVariable("user.avatarid", Context.User.AvatarId)
+                .AddVariable("user.mention", Context.User.Mention)
+                .AddVariable("guild.id", Context.Guild.Id)
+                .AddVariable("guild.name", Context.Guild.Name);
+        }
+        
         protected string GetText(string wordKey)
         {
             string localeKey = _discordGuildRepository.GetLocaleKey(Context.Guild);

@@ -8,6 +8,6 @@ namespace FloofBot.Core.Services
     public interface IModuleLoader : IFloofyService
     {
         Dictionary<IModuleManifest, HashSet<string>> CommandMap { get; }
-        Task Load(IServiceProvider serviceProvider);
+        Task LoadAsync(IServiceProvider serviceProvider);
     }
 }

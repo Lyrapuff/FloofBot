@@ -4,7 +4,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloofBot.Starter", "FloofBo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloofBot.Core", "FloofBot.Core\FloofBot.Core.csproj", "{E1C8F7A1-95BF-4408-8F8E-CE0365E891D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloofBot.TestModule", "FloofBot.TestModule\FloofBot.TestModule.csproj", "{A2F95E01-06E3-444D-8D7E-8C84C39CFFDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestModule", "TestModule\TestModule.csproj", "{A2F95E01-06E3-444D-8D7E-8C84C39CFFDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Derpibooru", "Derpibooru\Derpibooru.csproj", "{53860A9D-E878-4711-AB31-74B2A367348F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +26,9 @@ Global
 		{A2F95E01-06E3-444D-8D7E-8C84C39CFFDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2F95E01-06E3-444D-8D7E-8C84C39CFFDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2F95E01-06E3-444D-8D7E-8C84C39CFFDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53860A9D-E878-4711-AB31-74B2A367348F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53860A9D-E878-4711-AB31-74B2A367348F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53860A9D-E878-4711-AB31-74B2A367348F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53860A9D-E878-4711-AB31-74B2A367348F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

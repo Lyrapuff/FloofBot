@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>ImageSearchModule</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -9,6 +10,6 @@
     </ItemGroup>
 
     <Target Name="Copy module" AfterTargets="Build">
-        <Copy SourceFiles="$(OutputPath)\FloofBot.TestModule.dll" DestinationFolder="$(SolutionDir)\FloofBot.Starter\bin\Debug\netcoreapp3.1\Modules" ContinueOnError="true" />
+        <Copy SourceFiles="$(OutputPath)\Derpibooru.dll" DestinationFolder="$(SolutionDir)\FloofBot.Starter\bin\Debug\netcoreapp3.1\Modules" ContinueOnError="true" />
     </Target>
 </Project>

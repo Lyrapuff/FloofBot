@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>FloofBot.TestModule</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FloofBot.Core\FloofBot.Core.csproj" />
+    </ItemGroup>
+
+    <Target Name="Copy module" AfterTargets="Build">
+        <Copy SourceFiles="$(OutputPath)\TestModule.dll" DestinationFolder="$(SolutionDir)\FloofBot.Starter\bin\Debug\netcoreapp3.1\Modules" ContinueOnError="true" />
+    </Target>
+</Project>

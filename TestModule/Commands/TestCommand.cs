@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿﻿using System.Threading.Tasks;
+using Discord;
 using FloofBot.Core.Attributes;
 using FloofBot.Core.Modules;
 using FloofBot.Core.Services;
@@ -12,10 +13,14 @@ namespace FloofBot.TestModule.Commands
         {
         }
 
-        [FloofCommand, FloofAliases]
+        [FloofyCommand, FloofyAliases]
         public async Task Test()
         {
-            await Context.Channel.SendMessageAsync(GetText("cat"));
+            EmbedBuilder embed = new EmbedBuilder()
+                .WithTitle(GetText("cat"))
+                .WithDescription("1321");
+            
+            await Context.Channel.SendMessageAsync("",false, embed.Build());
         }
     }
 }

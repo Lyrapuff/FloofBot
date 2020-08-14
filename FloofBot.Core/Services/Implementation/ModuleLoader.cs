@@ -25,7 +25,7 @@ namespace FloofBot.Core.Services.Implementation
             _logger = _loggerProvider.GetLogger("Main");
         }
 
-        public async Task Load(IServiceProvider serviceProvider)
+        public async Task LoadAsync(IServiceProvider serviceProvider)
         {
             try
             {
@@ -57,14 +57,14 @@ namespace FloofBot.Core.Services.Implementation
                             IEnumerable<MethodInfo> commandMethods = assembly
                                 .GetTypes()
                                 .SelectMany(x => x.GetMethods())
-                                .Where(x => x.GetCustomAttributes(typeof(FloofCommandAttribute)).Any());
+                                .Where(x => x.GetCustomAttributes(typeof(FloofyCommandAttribute)).Any());
                             
                             HashSet<string> commands = new HashSet<string>();
                             
                             foreach (MethodInfo method in commandMethods)
                             {
-                                FloofCommandAttribute attribute =
-                                    method.GetCustomAttributes(typeof(FloofCommandAttribute)).FirstOrDefault() as FloofCommandAttribute;
+                                FloofyCommandAttribute attribute =
+                                    method.GetCustomAttributes(typeof(FloofyCommandAttribute)).FirstOrDefault() as FloofyCommandAttribute;
 
                                 if (attribute != null)
                                 {

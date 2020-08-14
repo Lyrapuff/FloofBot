@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using FloofBot.Core.Api;
 using FloofBot.Core.Extensions;
 using FloofBot.Core.Services;
-using FloofBot.Core.Services.Database;
 using FloofBot.Core.Services.Implementation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,7 +21,7 @@ namespace FloofBot.Core
         private IBotConfiguration _botConfiguration;
         private IServiceProvider _serviceProvider;
 
-        public async Task Setup()
+        public async Task SetupAsync()
         {
             _botConfiguration = new BotConfiguration();
             
@@ -39,7 +39,7 @@ namespace FloofBot.Core
 
             await LoginAsync();
             
-            AddServices();
+            await AddServices();
         }
 
         private async Task LoginAsync()
@@ -48,7 +48,7 @@ namespace FloofBot.Core
             await _client.StartAsync();
         }
 
-        private void AddServices()
+        private async Task AddServices()
         {
             Stopwatch timer = Stopwatch.StartNew();
             
@@ -60,18 +60,6 @@ namespace FloofBot.Core
             
             serviceCollection.LoadFrom(Assembly.GetAssembly(typeof(BotSetup)));
             
-            _serviceProvider = serviceCollection.BuildServiceProvider();
-
-            _serviceProvider.GetService<ILocalization>();
-            
-            _serviceProvider.GetService<IModuleLoader>()
-                .Load(_serviceProvider);
-
-            _serviceProvider.GetService<ICommandHandler>()
-                .Start(_serviceProvider);
-            
-            _serviceProvider.GetService<GuildSetup>();
-            
             string path = "Modules";
             
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
@@ -81,6 +69,21 @@ namespace FloofBot.Core
                 Assembly assembly = Assembly.LoadFile(fileInfo.FullName);
                 serviceCollection.LoadFrom(assembly);
             }
+            
+            _serviceProvider = serviceCollection.BuildServiceProvider();
+
+            _serviceProvider.GetService<ILocalization>();
+            
+            await _serviceProvider.GetService<IModuleLoader>()
+                .LoadAsync(_serviceProvider);
+
+            _serviceProvider.GetService<ICommandHandler>()
+                .Start(_serviceProvider);
+            
+            _serviceProvider.GetService<GuildSetup>();
+
+            await _serviceProvider.GetService<FloofyHost>()
+                .StartAsync();
             
             timer.Stop();
             

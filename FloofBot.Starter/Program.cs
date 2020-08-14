@@ -7,7 +7,7 @@ namespace FloofBot.Starter
     {
         public static async Task Main()
         {
-            await new BotSetup().Setup();
+            await new BotSetup().SetupAsync();
             await Task.Delay(-1);
         }
     }

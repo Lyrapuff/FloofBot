@@ -6,9 +6,9 @@ using FloofBot.Core.Services.Implementation;
 namespace FloofBot.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class FloofCommandAttribute : CommandAttribute
+    public class FloofyCommandAttribute : CommandAttribute
     {
-        public FloofCommandAttribute([CallerMemberName] string memberName = "") : base(BotConfiguration.GetCommand(memberName.ToLowerInvariant()).Name)
+        public FloofyCommandAttribute([CallerMemberName] string memberName = "") : base(BotConfiguration.GetCommand(memberName.ToLowerInvariant()).Name)
         {
             
         }
