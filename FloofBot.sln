@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestModule", "TestModule\Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Derpibooru", "Derpibooru\Derpibooru.csproj", "{53860A9D-E878-4711-AB31-74B2A367348F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloofBot.Web", "FloofBot.Web\FloofBot.Web.csproj", "{6C35B0FF-67A4-4C0C-AFD8-561F5F283AE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{53860A9D-E878-4711-AB31-74B2A367348F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53860A9D-E878-4711-AB31-74B2A367348F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53860A9D-E878-4711-AB31-74B2A367348F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C35B0FF-67A4-4C0C-AFD8-561F5F283AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C35B0FF-67A4-4C0C-AFD8-561F5F283AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C35B0FF-67A4-4C0C-AFD8-561F5F283AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C35B0FF-67A4-4C0C-AFD8-561F5F283AE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

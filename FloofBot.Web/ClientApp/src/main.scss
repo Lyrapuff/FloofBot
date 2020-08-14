@@ -1,0 +1,59 @@
+﻿[theme=light] {
+  --background-main: #ffffff;
+  --font-main: #000000;
+  --font-secondary: #3d4247;
+
+  --background-main-opposite: #2C2F33;
+  --font-main-opposite: #ffffff;
+  --font-secondary-opposite: #adb2b8;
+}
+
+[theme=dark] {
+  --background-main: #2C2F33;
+  --font-main: #ffffff;
+  --font-secondary: #adb2b8;
+
+  --background-main-opposite: #ffffff;
+  --font-main-opposite: #000000;
+  --font-secondary-opposite: #3d4247;
+}
+
+html {
+  font-family: "Segoe UI", sans-serif;
+  color: var(--font-main);
+  background-color: var(--background-main);
+}
+
+body {
+  margin: 0;
+}
+
+svg {
+  margin-top: -5px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.ButtonPrimary {
+  position: relative;
+  color: #ffffff;
+  background-color: #EA4C88;
+  padding: 0 10px;
+  border-radius: 5px;
+  transition: .2s;
+  
+  &:hover {
+    background-color: #FA5C98;
+  }
+}
+
+.ButtonSecondary {
+  position: relative;
+  color: var(--font-main-opposite);
+  background-color: var(--background-main-opposite);
+  padding: 0 10px;
+  border-radius: 5px;
+}
