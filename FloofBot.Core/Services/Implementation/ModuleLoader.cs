@@ -25,7 +25,7 @@ namespace FloofBot.Core.Services.Implementation
             _logger = _loggerProvider.GetLogger("Main");
         }
 
-        public async Task LoadAsync(IServiceProvider serviceProvider)
+        public async Task Load(IServiceProvider serviceProvider)
         {
             try
             {

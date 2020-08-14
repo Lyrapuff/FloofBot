@@ -1,15 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using FloofBot.Core.Api;
-using FloofBot.Core.Extensions;
 using FloofBot.Core.Services;
 using FloofBot.Core.Services.Implementation;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FloofBot.Core
@@ -19,7 +15,6 @@ namespace FloofBot.Core
         private DiscordSocketClient _client;
         private CommandService _commandService;
         private IBotConfiguration _botConfiguration;
-        private IServiceProvider _serviceProvider;
 
         public async Task SetupAsync()
         {
@@ -38,8 +33,8 @@ namespace FloofBot.Core
             });
 
             await LoginAsync();
-            
-            await AddServices();
+
+            await StartWebHost();
         }
 
         private async Task LoginAsync()
@@ -48,48 +43,20 @@ namespace FloofBot.Core
             await _client.StartAsync();
         }
 
-        private async Task AddServices()
+        private async Task StartWebHost()
         {
-            Stopwatch timer = Stopwatch.StartNew();
-            
-            IServiceCollection serviceCollection = new ServiceCollection();
+            IWebHostBuilder hostBuilder = new WebHostBuilder()
+                .ConfigureServices(x =>
+                {
+                    x.AddSingleton(_client);
+                    x.AddSingleton(_commandService);
+                })
+                .UseKestrel()
+                .UseUrls("http://localhost:5000")
+                .UseStartup<Startup>();
 
-            serviceCollection
-                .AddSingleton(_client)
-                .AddSingleton(_commandService);
-            
-            serviceCollection.LoadFrom(Assembly.GetAssembly(typeof(BotSetup)));
-            
-            string path = "Modules";
-            
-            DirectoryInfo directoryInfo = new DirectoryInfo(path);
-
-            foreach (FileInfo fileInfo in directoryInfo.GetFiles("*.dll"))
-            {
-                Assembly assembly = Assembly.LoadFile(fileInfo.FullName);
-                serviceCollection.LoadFrom(assembly);
-            }
-            
-            _serviceProvider = serviceCollection.BuildServiceProvider();
-
-            _serviceProvider.GetService<ILocalization>();
-            
-            await _serviceProvider.GetService<IModuleLoader>()
-                .LoadAsync(_serviceProvider);
-
-            _serviceProvider.GetService<ICommandHandler>()
-                .Start(_serviceProvider);
-            
-            _serviceProvider.GetService<GuildSetup>();
-
-            await _serviceProvider.GetService<FloofyHost>()
-                .StartAsync();
-            
-            timer.Stop();
-            
-            _serviceProvider.GetService<ILoggerProvider>()
-                .GetLogger("Main")
-                .LogInformation($"Loaded services in {timer.Elapsed:g}");
+            IWebHost host = hostBuilder.Build();
+            await host.StartAsync().ConfigureAwait(false);
         }
     }
 }
