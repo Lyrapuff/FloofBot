@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 
-import ThemeSwitch from "./ThemeSwitch";
 import {Link} from "react-router-dom";
+import User from "./User";
 
 import './navbar.scss';
 
@@ -10,11 +10,11 @@ export default class Navbar extends React.Component {
         return (
             <div className="Navbar">
                 <div className="NavItem NormalFont">
-                    <Link to="/">FloofyBot</Link>
+                    <Link className="BlandLink" to="/">FloofyBot</Link>
                 </div>
                 <div className="NavItem"/>
                 <div className="NavItem SmallFont">
-                    <Link to="/dashboard">Dashboard</Link>
+                    <Link className="BlandLink" to="/dashboard">Dashboard</Link>
                 </div>
                 <div className="NavItem SmallFont">
                     Commands
@@ -26,12 +26,8 @@ export default class Navbar extends React.Component {
                 <div style={{flexGrow: 1}}/>
                 
                 <div className="NavItem">
-                    <div className="ButtonPrimary">
-                        Login with Discord
-                    </div>
+                    <User/>
                 </div>
-
-                <ThemeSwitch className="NavItem"/>
             </div>
         );
     }

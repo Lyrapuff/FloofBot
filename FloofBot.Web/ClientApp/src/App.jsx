@@ -5,6 +5,7 @@ import { Home } from './pages/Home';
 import Dashboard from './pages/Dashboard';
 
 import "./main.scss";
+import 'antd/dist/antd.css';
 
 export default class App extends React.Component {
   render () {

@@ -1,3 +1,6 @@
+using FloofBot.Web.Models;
+using FloofBot.Web.Services;
+using FloofBot.Web.Services.Implementation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -18,8 +21,12 @@ namespace FloofBot.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<DiscordCredentials>(Configuration.GetSection("DiscordCredentials"));
+            services.AddSingleton<IHttpClientProvider, HttpClientProvider>();
+            services.AddSingleton<IDiscordApi, DiscordApi>();
+            
             services.AddControllersWithViews();
-
+            
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
         }
 
@@ -35,7 +42,6 @@ namespace FloofBot.Web
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
@@ -43,9 +49,7 @@ namespace FloofBot.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapDefaultControllerRoute();
             });
 
             app.UseSpa(spa =>
